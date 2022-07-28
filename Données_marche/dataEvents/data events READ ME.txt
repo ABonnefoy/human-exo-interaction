@@ -1,0 +1,3 @@
+Contient tous les évènements (heel strike et toe off) des différents essais de marche pour Lina et Syrine
+Valeurs extraites des fichiers c3d
+Sur vicon nexus : sélection manuelle des différents évènements

@@ -1,0 +1,141 @@
+%% Lecture des fichiers de marche .
+close all; clc; clear all;
+load('IKLina_moy.mat')
+load('IKSyrine_moy.mat')
+
+%% Lina
+
+
+%droite
+Hanche_d_L=IKLina_moy{1,8};
+Genou_d_L= IKLina_moy{1,11};
+Cheville_d_L=IKLina_moy{1,14};
+
+std_Hanche_d_L=IKLina_moy{2,8};
+std_Genou_d_L= IKLina_moy{2,11};
+std_Cheville_d_L=IKLina_moy{2,14};
+
+
+%gauche
+Hanche_g_L=IKLina_moy{1,21};
+Genou_g_L= IKLina_moy{1,24};
+Cheville_g_L=IKLina_moy{1,27};
+
+std_Hanche_g_L=IKLina_moy{2,21};
+std_Genou_g_L= IKLina_moy{2,24};
+std_Cheville_g_L=IKLina_moy{2,27};
+
+%% Syrine
+
+%droite
+Hanche_d_S=IKSyrine_moy{1,8};
+Genou_d_S= IKSyrine_moy{1,11};
+Cheville_d_S=IKSyrine_moy{1,14};
+
+std_Hanche_d_S=IKSyrine_moy{2,8};
+std_Genou_d_S= IKSyrine_moy{2,11};
+std_Cheville_d_S=IKSyrine_moy{2,14};
+
+%gauche
+Hanche_g_S=IKSyrine_moy{1,21};
+Genou_g_S= IKSyrine_moy{1,24};
+Cheville_g_S=IKSyrine_moy{1,27};
+
+std_Hanche_g_S=IKSyrine_moy{2,21};
+std_Genou_g_S= IKSyrine_moy{2,24};
+std_Cheville_g_S=IKSyrine_moy{2,27};
+
+
+
+%% Plot
+
+%Hanche
+t=0:100;
+plot(t,Hanche_d_S,'r',t,Hanche_d_L,'b',t,Hanche_g_S,'m',t,Hanche_g_L,'k');
+hold on;
+plot(t,Hanche_d_S+std_Hanche_d_S,'--r',t,Hanche_d_L+std_Hanche_d_L,'--b',t,Hanche_g_S+std_Hanche_g_S,'--m',t,Hanche_g_L+std_Hanche_g_L,'--k');
+plot(t,Hanche_d_S-std_Hanche_d_S,'--r',t,Hanche_d_L-std_Hanche_d_L,'--b',t,Hanche_g_S-std_Hanche_g_S,'--m',t,Hanche_g_L-std_Hanche_g_L,'--k');
+
+title('Lina Sirine Hanche');
+xlabel('Percentage of the cycle (%)');
+ylabel('Angles in Degrees');
+legend({'Sirine droite ','Lina droite', 'Sirine gauche', 'Lina gauche'},'Location','southwest','NumColumns',2);
+
+%%
+%Genou
+figure;
+plot(t,Genou_d_S,'r',t,Genou_d_L,'b',t,Genou_g_S,'m',t,Genou_g_L,'k');
+hold on;
+plot(t,Genou_d_S+std_Genou_d_S,'--r',t,Genou_d_L+std_Genou_d_L,'--b',t,Genou_g_S+std_Genou_g_S,'--m',t,Genou_g_L+std_Genou_g_L,'--k');
+plot(t,Genou_d_S-std_Genou_d_S,'--r',t,Genou_d_L-std_Genou_d_L,'--b',t,Genou_g_S-std_Genou_g_S,'--m',t,Genou_g_L-std_Genou_g_L,'--k');
+title('Lina Sirine Genou');
+xlabel('Percentage of the cycle (%)');
+ylabel('Angles in Degrees');
+legend({'Sirine droite ','Lina droite', 'Sirine gauche', 'Lina gauche'},'Location','southwest','NumColumns',2);
+
+%%
+%Cheville droite et gauche
+figure;
+t=0:100;
+plot(t,Cheville_d_S,'r',t,Cheville_d_L,'b',t,Cheville_g_S,'m',t,Cheville_g_L,'k');
+hold on;
+plot(t,Cheville_d_S+std_Cheville_d_S,'--r',t,Cheville_d_L+std_Cheville_d_L,'--b',t,Cheville_g_S+std_Cheville_g_S,'--m',t,Cheville_g_L+std_Cheville_g_L,'--k');
+plot(t,Cheville_d_S-std_Cheville_d_S,'--r',t,Cheville_d_L-std_Cheville_d_L,'--b',t,Cheville_g_S-std_Cheville_g_S,'--m',t,Cheville_g_L-std_Cheville_g_L,'--k');title('Lina Sirine Cheville');
+xlabel('Percentage of the cycle (%)');
+ylabel('Angles in Degrees');
+legend({'Sirine droite ','Lina droite', 'Sirine gauche', 'Lina gauche'},'Location','southwest','NumColumns',2);
+
+
+%% Fichiers .txt
+clear; clc ; close all;
+% Sirine
+
+%marches_S=zeros(18,67,2000);
+for j=1:18
+
+    marcheName = strcat(['D:\s.otmani\Documents\Thèse\Données_marche\fichiers txt\marche',num2str(j), '.txt']);
+    T=readtable(marcheName);
+    H=table2struct(T, 'ToScalar', true);
+    namesSyrine=fieldnames(H);
+    
+% 
+%         fn = fieldnames(H);
+%         for k=1:numel(fn)
+%            value=length(H.(fn{k}));
+%            marches_S(j,k,1:value)=H.(fn{k});
+%         end
+%      
+end
+
+%% Valeurs interessantes:
+
+Time=1;
+Hanche_d=8;
+Genou_d=11;
+Cheville_d=13;
+Hanche_g=21;
+Genou_g=Genou_d+13;
+Cheville_g=Cheville_d+13;
+
+%% Marche 1
+
+marche1.time=marches_S(1,1,:);
+marche1.Hanche_d=marches_S(1,8,:);
+marche1.Hanche_g=marches_S(1,21,:);
+marche1.Genou_d=marches_S(1,11,:);
+marche1.Genou_g=marches_S(1,24,:);
+marche1.Cheville_d=marches_S(1,13,:);
+marche1.Cheville_g=marches_S(1,26,:);
+
+c=true;
+i=2;
+    while(marche1.time(:,:,i)~=0.000 && i<length(marche1.time))
+        i=i+1;
+    end
+    if( marche1.time(:,:,i)==0.000 && (i~=1) )
+        fprintf('Valeur : %d \n', marche1.time(:,:,i));
+        indice=i-1;
+    end
+
+
+            
