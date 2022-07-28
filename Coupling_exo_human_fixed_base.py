@@ -299,8 +299,8 @@ degradation_knee=-degr/100
 degradation_hip=-degr/100
 
 ## Définition d'un couple de torsion
-S_torsion_right=3
-D_torsion_right=0.01
+S_torsion_right=0.8
+D_torsion_right=0.001
 # S_torsion_right=0
 # D_torsion_right=0
 S_torsion_left=S_torsion_right
@@ -520,14 +520,14 @@ for i in range(begin_left_cycle_human, end_left_cycle_human):
 
 
      #### PD+ ######
-    P=53
-    D=0.1
-    tau_pd=P*(vector_exo-p_mes_exo) + D*(v_exo- v_mes_exo)
-    dv=pin.aba(model_exo,robot_pinocchio.data,p_mes_exo,v_mes_exo,tau_pd)  ## Negatif pour l'exo
-    v_mean_exo = v_mes_exo + 0.5*dt*dv
-    v_mes_exo += dt*dv
-    p_mes_exo = pin.integrate(model_exo, p_mes_exo, dt*v_mean_exo)
-    t += dt
+    # P=3
+    # D=0.1
+    # tau_pd=P*(vector_exo-p_mes_exo) + D*(v_exo- v_mes_exo)
+    # dv=pin.aba(model_exo,robot_pinocchio.data,p_mes_exo,v_mes_exo,tau_pd)  ## Negatif pour l'exo
+    # v_mean_exo = v_mes_exo + 0.5*dt*dv
+    # v_mes_exo += dt*dv
+    # p_mes_exo = pin.integrate(model_exo, p_mes_exo, dt*v_mean_exo)
+    # t += dt
 
 
     pin.forwardKinematics(model_exo,robot_pinocchio.data,p_mes_exo)
@@ -558,9 +558,9 @@ for i in range(begin_left_cycle_human, end_left_cycle_human):
         # torsion[5]=0
         #print(torsion)  
     
-    if i%DISPLAY_N == 0: 
-        robot_display.robot.display(q)
-        human_display.robot.display(p)
+    # if i%DISPLAY_N == 0: 
+    #     robot_display.robot.display(q)
+    #     human_display.robot.display(p)
 
 
     time_spent = time.time() - time_start
